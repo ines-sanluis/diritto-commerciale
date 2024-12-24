@@ -4,10 +4,9 @@ import { Trophy, Clock, Target } from "lucide-react";
 
 interface QuizResultsProps {
   results: QuizResultsType;
-  onRestart: () => void;
 }
 
-export default function QuizResults({ results, onRestart }: QuizResultsProps) {
+export default function QuizResults({ results }: QuizResultsProps) {
   const percentage =
     (results.correctAnswers.length / results.totalQuestions) * 100;
 
@@ -91,13 +90,6 @@ export default function QuizResults({ results, onRestart }: QuizResultsProps) {
           ))}
         </div>
       </div>
-
-      <button
-        onClick={onRestart}
-        className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-      >
-        Inizia un Nuovo Quiz
-      </button>
     </div>
   );
 }

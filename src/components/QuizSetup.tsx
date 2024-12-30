@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { QuizSettings, TopicId } from "../types";
 import { topics } from "../data/topics";
 import { Settings } from "lucide-react";
+import { questions } from "../data/questions";
 
 interface QuizSetupProps {
   onStart: (settings: QuizSettings) => void;
@@ -23,11 +24,11 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex items-center gap-2 mb-6">
         <Settings className="w-6 h-6 text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-800">Configura il Quiz</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Configura il quiz</h2>
       </div>
 
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3">Seleziona gli Argomenti</h3>
+        <h3 className="text-lg font-semibold mb-3">Argomenti</h3>
         <div className="flex flex-col gap-3">
           {topics.map((topic) => (
             <label
@@ -58,11 +59,11 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
       </div>
 
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-3">Numero di Domande</h3>
+        <h3 className="text-lg font-semibold mb-3">Numero di domande</h3>
         <input
           type="range"
           min="5"
-          max="100"
+          max={questions.length}
           value={questionCount}
           onChange={(e) => setQuestionCount(Number(e.target.value))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
@@ -75,7 +76,7 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
         disabled={selectedTopics.length === 0}
         className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
       >
-        Inizia il Quiz
+        Inizia il quiz
       </button>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { QuizSettings, QuizResultsType, Question } from "./types";
 import QuizSetup from "./components/QuizSetup";
 import Quiz from "./components/Quiz";

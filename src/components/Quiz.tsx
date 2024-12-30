@@ -1,12 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Question, QuizState, QuizResultsType } from "../types";
 import { Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import { Timer } from "./Timer";
+import { topics } from "../data/topics";
 
 interface QuizProps {
   questions: Question[];
   onComplete: (results: QuizResultsType) => void;
 }
+
+const getTopicName = (topicId: string) => {
+  return topics.find((topic) => topic.id === topicId)?.name;
+};
 
 export default function Quiz({ questions, onComplete }: QuizProps) {
   const [state, setState] = useState<QuizState>({
@@ -17,6 +22,9 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
   });
 
   const currentQuestion = questions[state.currentQuestionIndex];
+  const randomAnswers = useMemo(() => {
+    return currentQuestion.options.sort(() => Math.random() - 0.5);
+  }, [currentQuestion]);
 
   const handleAnswer = useCallback(
     (answer: string) => {
@@ -133,18 +141,23 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-xl font-bold mb-6">{currentQuestion.text}</h2>
+        <div className="flex flex-col gap-2 mb-6">
+          <h2 className="text-xl font-bold">{currentQuestion.text}</h2>
+          <p className="text-sm font-medium text-gray-500">
+            {getTopicName(currentQuestion.topicId)}
+          </p>
+        </div>
         <div className="space-y-3">
-          {currentQuestion.options.map((option, index) => (
+          {randomAnswers.map((option, index) => (
             <label
               key={index}
-              className={`flex gap-4 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 ${
+              className={`flex gap-4 p-4 border rounded-lg cursor-pointer hover:bg-blue-50 ${
                 state.answers[currentQuestion.id] === option
-                  ? "border-blue-500 bg-blue-50"
-                  : "border-gray-200"
+                  ? "border-green-500 bg-green-50 font-bold"
+                  : "border-gray-200 bg-gray-50"
               }`}
             >
-              <p className="text-blue-500 bold">{index + 1}</p>
+              <p className="text-green-500 bold">{index + 1}</p>
               <input
                 type="radio"
                 name="answer"

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { QuizSettings, TopicId } from '../types';
-import { topics } from '../data/topics';
-import { Settings } from 'lucide-react';
+import React, { useState } from "react";
+import { QuizSettings, TopicId } from "../types";
+import { topics } from "../data/topics";
+import { Settings } from "lucide-react";
 
 interface QuizSetupProps {
   onStart: (settings: QuizSettings) => void;
@@ -15,7 +15,7 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
     if (selectedTopics.length === 0) return;
     onStart({
       selectedTopics,
-      questionCount
+      questionCount,
     });
   };
 
@@ -28,7 +28,7 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
 
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-3">Seleziona gli Argomenti</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="flex flex-col gap-3">
           {topics.map((topic) => (
             <label
               key={topic.id}
@@ -42,7 +42,9 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
                   if (e.target.checked) {
                     setSelectedTopics([...selectedTopics, topic.id]);
                   } else {
-                    setSelectedTopics(selectedTopics.filter(t => t !== topic.id));
+                    setSelectedTopics(
+                      selectedTopics.filter((t) => t !== topic.id)
+                    );
                   }
                 }}
               />
@@ -60,7 +62,7 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
         <input
           type="range"
           min="5"
-          max="30"
+          max="100"
           value={questionCount}
           onChange={(e) => setQuestionCount(Number(e.target.value))}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"

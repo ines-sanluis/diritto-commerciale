@@ -66,7 +66,7 @@ function App() {
             onClick={handleRestart}
             className="py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Inizia un Nuovo Quiz
+            Nuovo quiz
           </button>
         </div>
       )}

@@ -1,4 +1,4 @@
-export type TopicId = "imprenditore";
+export type TopicId = "imprenditore" | "categorie_imprenditore";
 
 export interface Topic {
   id: TopicId;

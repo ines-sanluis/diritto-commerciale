@@ -1,4 +1,4 @@
-import { TopicId, Topic, Question } from "./domain";
+import { TopicId, Question } from "./domain";
 
 export interface QuizSettings {
   selectedTopics: TopicId[];

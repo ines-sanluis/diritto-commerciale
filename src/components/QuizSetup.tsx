@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { QuizSettings, TopicId } from "../types";
 import { topics } from "../data/topics";
 import { Settings } from "lucide-react";
@@ -9,7 +9,9 @@ interface QuizSetupProps {
 }
 
 export default function QuizSetup({ onStart }: QuizSetupProps) {
-  const [selectedTopics, setSelectedTopics] = useState<TopicId[]>([]);
+  const [selectedTopics, setSelectedTopics] = useState<TopicId[]>(
+    topics.map((t) => t.id)
+  );
   const [questionCount, setQuestionCount] = useState(10);
 
   const handleStart = () => {
@@ -29,15 +31,30 @@ export default function QuizSetup({ onStart }: QuizSetupProps) {
 
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-3">Argomenti</h3>
+        <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer mb-3">
+          <input
+            type="checkbox"
+            className="w-4 h-4 text-blue-600"
+            checked={selectedTopics.length === topics.length}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setSelectedTopics(topics.map((t) => t.id));
+              } else {
+                setSelectedTopics([]);
+              }
+            }}
+          />
+          <div className="ml-3">Seleziona tutti</div>
+        </label>
         <div className="flex flex-col gap-3">
           {topics.map((topic) => (
             <label
               key={topic.id}
-              className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+              className="flex p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
             >
               <input
                 type="checkbox"
-                className="w-4 h-4 text-blue-600"
+                className="mt-1 w-4 h-4 text-blue-600"
                 checked={selectedTopics.includes(topic.id)}
                 onChange={(e) => {
                   if (e.target.checked) {
